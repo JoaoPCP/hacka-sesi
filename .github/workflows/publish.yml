@@ -9,26 +9,29 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # <-- ESSENCIAL para poder escrever na gh-pages
-
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # importante para permitir publicação
+          fetch-depth: 0  # Important to fetch all branches
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Check Quarto Installation
-        run: quarto --version
-
-      - name: Configure Git identity
+      - name: Configure Git
         run: |
-          git config --global user.email "actions@github.com"
+          git config --global user.email "github-actions@example.com"
           git config --global user.name "GitHub Actions"
 
-      - name: Render and Publish to GitHub Pages
+      - name: Initialize gh-pages (if needed)
+        run: |
+          # Check if gh-pages exists
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            quarto publish gh-pages --no-prompt --no-browser
+          fi
+
+      - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
