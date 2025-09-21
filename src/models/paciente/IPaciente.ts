@@ -8,5 +8,5 @@ export interface IPaciente {
   telefone: string;
   data_nascimento: Date;
   empresa: Empresa;
-  grupoDeRisco?: GrupoDeRisco
+  grupoDeRisco: GrupoDeRisco | null;
 }

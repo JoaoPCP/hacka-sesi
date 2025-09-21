@@ -35,9 +35,10 @@ model Empresa {
 }
 
 model Exame {
-  id              Int            @id @default(autoincrement())
+  CODSUS          String         @id
   nome            String
-  descricao       String?
+  descricao       String
+  importancia     String
   consulta        Consulta[]     @relation("ConsultaExames")
   grupos_de_risco GrupoDeRisco[] @relation("GrupoDeRiscoExames")
 }
@@ -53,6 +54,7 @@ model GrupoDeRisco {
 model Consulta {
   id           Int      @id @default(autoincrement())
   data         DateTime
+  status       String
   Empresa      Empresa  @relation(fields: [empresa_cnpj], references: [cnpj])
   empresa_cnpj String
   paciente     Paciente @relation(fields: [paciente_cpf], references: [cpf])
