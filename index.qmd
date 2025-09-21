@@ -2,6 +2,11 @@
 title: "Projeto SESI+ Saude : Melhor Agora!"
 ---
 
+
+# 🎯 Objetivo
+
+Construir uma automação de WhatsApp usando **Evolution API** e **n8n**, do zero à produção, incluindo instalação, configuração, fluxo de menus interativos, persistência de estado por contato e boas práticas operacionais.
+
 **Para ter acesso ao código fonte do projeto acesse <https://github.com/JoaoPCP/hacka-sesi>.**
 
 # Como Executar
@@ -18,6 +23,4 @@ title: "Projeto SESI+ Saude : Melhor Agora!"
 ### Atenção
 Atenção ao selecionar o sistema operacional para teste do projeto. Para Windows, é recomendado o uso do WSL (Windows Subsystem for Linux). Siga as instruções na seção "Windows com WSL".
 ::: 
-## "Windows com WSL"
-Se você está usando Windows, mas não quer usar o WSL, siga o tutorial de instalação do Python para Windows.
-    
+

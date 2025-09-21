@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -126,8 +161,52 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#arquitetura" id="toc-arquitetura" class="nav-link active" data-scroll-target="#arquitetura">🧩 Arquitetura</a></li>
+  <li><a href="#pré-requisitos" id="toc-pré-requisitos" class="nav-link" data-scroll-target="#pré-requisitos">✅ Pré-requisitos</a></li>
+  <li><a href="#instalação-do-n8n-do-zero" id="toc-instalação-do-n8n-do-zero" class="nav-link" data-scroll-target="#instalação-do-n8n-do-zero">⚙️ Instalação do n8n (do zero)</a>
+  <ul class="collapse">
+  <li><a href="#instalar-docker-e-compose" id="toc-instalar-docker-e-compose" class="nav-link" data-scroll-target="#instalar-docker-e-compose">Instalar Docker e Compose</a></li>
+  <li><a href="#estrutura-do-projeto" id="toc-estrutura-do-projeto" class="nav-link" data-scroll-target="#estrutura-do-projeto">Estrutura do projeto</a></li>
+  </ul></li>
+  <li><a href="#instalação-da-evolution-api" id="toc-instalação-da-evolution-api" class="nav-link" data-scroll-target="#instalação-da-evolution-api">⚙️ Instalação da Evolution API</a></li>
+  <li><a href="#integração-evolution-api-n8n" id="toc-integração-evolution-api-n8n" class="nav-link" data-scroll-target="#integração-evolution-api-n8n">🔗 Integração Evolution API → n8n</a>
+  <ul class="collapse">
+  <li><a href="#webhook-no-n8n-produção" id="toc-webhook-no-n8n-produção" class="nav-link" data-scroll-target="#webhook-no-n8n-produção">Webhook no n8n (Produção)</a></li>
+  <li><a href="#configuração-no-evolution" id="toc-configuração-no-evolution" class="nav-link" data-scroll-target="#configuração-no-evolution">Configuração no Evolution</a></li>
+  <li><a href="#payload-típico-recebido" id="toc-payload-típico-recebido" class="nav-link" data-scroll-target="#payload-típico-recebido">Payload típico recebido</a></li>
+  </ul></li>
+  <li><a href="#normalização-de-entrada-code-node" id="toc-normalização-de-entrada-code-node" class="nav-link" data-scroll-target="#normalização-de-entrada-code-node">🧠 Normalização de entrada (Code Node)</a></li>
+  <li><a href="#persistência-de-sessão-data-store" id="toc-persistência-de-sessão-data-store" class="nav-link" data-scroll-target="#persistência-de-sessão-data-store">🗂️ Persistência de sessão (Data Store)</a></li>
+  <li><a href="#fluxo-de-conversa-menu" id="toc-fluxo-de-conversa-menu" class="nav-link" data-scroll-target="#fluxo-de-conversa-menu">🧭 Fluxo de conversa (menu)</a>
+  <ul class="collapse">
+  <li><a href="#regras-gerais" id="toc-regras-gerais" class="nav-link" data-scroll-target="#regras-gerais">Regras gerais</a></li>
+  <li><a href="#menu-raiz-exemplo-de-mensagem" id="toc-menu-raiz-exemplo-de-mensagem" class="nav-link" data-scroll-target="#menu-raiz-exemplo-de-mensagem">Menu raiz (exemplo de mensagem)</a></li>
+  <li><a href="#branch-suporte" id="toc-branch-suporte" class="nav-link" data-scroll-target="#branch-suporte">Branch: Suporte</a></li>
+  <li><a href="#branch-vendas" id="toc-branch-vendas" class="nav-link" data-scroll-target="#branch-vendas">Branch: Vendas</a></li>
+  </ul></li>
+  <li><a href="#envio-de-mensagens-evolution-api" id="toc-envio-de-mensagens-evolution-api" class="nav-link" data-scroll-target="#envio-de-mensagens-evolution-api">📤 Envio de mensagens (Evolution API)</a>
+  <ul class="collapse">
+  <li><a href="#texto-simples" id="toc-texto-simples" class="nav-link" data-scroll-target="#texto-simples">Texto simples</a></li>
+  <li><a href="#botões-interativos" id="toc-botões-interativos" class="nav-link" data-scroll-target="#botões-interativos">Botões interativos</a></li>
+  </ul></li>
+  <li><a href="#colocando-em-produção" id="toc-colocando-em-produção" class="nav-link" data-scroll-target="#colocando-em-produção">🏭 Colocando em produção</a></li>
+  <li><a href="#testes-e-troubleshooting" id="toc-testes-e-troubleshooting" class="nav-link" data-scroll-target="#testes-e-troubleshooting">🧪 Testes e troubleshooting</a></li>
+  <li><a href="#boas-práticas" id="toc-boas-práticas" class="nav-link" data-scroll-target="#boas-práticas">🛡️ Boas práticas</a></li>
+  <li><a href="#apêndice-a-snippets-úteis-n8n" id="toc-apêndice-a-snippets-úteis-n8n" class="nav-link" data-scroll-target="#apêndice-a-snippets-úteis-n8n">📎 Apêndice A — Snippets úteis (n8n)</a>
+  <ul class="collapse">
+  <li><a href="#code-normalize" id="toc-code-normalize" class="nav-link" data-scroll-target="#code-normalize">Code (normalize)</a></li>
+  <li><a href="#upsert-data-store-sessions" id="toc-upsert-data-store-sessions" class="nav-link" data-scroll-target="#upsert-data-store-sessions">Upsert (Data Store → sessions)</a></li>
+  <li><a href="#if-sem-sessão-ou-pediu-menu" id="toc-if-sem-sessão-ou-pediu-menu" class="nav-link" data-scroll-target="#if-sem-sessão-ou-pediu-menu">IF (sem sessão ou pediu menu)</a></li>
+  </ul></li>
+  <li><a href="#apêndice-b-docker-compose-exemplo" id="toc-apêndice-b-docker-compose-exemplo" class="nav-link" data-scroll-target="#apêndice-b-docker-compose-exemplo">📎 Apêndice B — docker-compose (exemplo)</a></li>
+  <li><a href="#checklist-de-golive" id="toc-checklist-de-golive" class="nav-link" data-scroll-target="#checklist-de-golive">🧾 Checklist de Go‑Live</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -135,8 +214,421 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<hr>
+<section id="arquitetura" class="level1">
+<h1>🧩 Arquitetura</h1>
+<pre class="mermaid"><code>flowchart LR
+  subgraph WhatsApp
+    U[Usuário]
+  end
+
+  subgraph EvolutionAPI["Evolution API"]
+    E[(Instância)]
+  end
+
+  subgraph n8n
+    W[Webhook (entrada)]
+    C[Code (normalize)]
+    D[(Data Store\\nsessions)]
+    S[Switch (step)]
+    H[HTTP Request\\n(Evolution API out)]
+  end
+
+  U -- mensagem --&gt; E
+  E -- webhook POST --&gt; W
+  W --&gt; C --&gt; D
+  D --&gt; S
+  S --&gt;|fluxo| H
+  H -- resposta --&gt; E
+  E -- WhatsApp --&gt; U</code></pre>
+<p><strong>Pontos-chave</strong> - Cada mensagem recebida no WhatsApp <strong>gera um POST</strong> da Evolution API para o <strong>Webhook de Produção</strong> do n8n. - O n8n consulta/salva o <strong>estado (step)</strong> por <code>userId</code> para continuar o diálogo. - O n8n responde via <strong>HTTP Request</strong> para a Evolution API.</p>
+<hr>
+</section>
+<section id="pré-requisitos" class="level1">
+<h1>✅ Pré-requisitos</h1>
+<ul>
+<li><strong>Servidor Linux</strong> (Ubuntu recomendado) ou n8n.cloud.</li>
+<li><strong>Domínio</strong> público (ex.: <code>automacao.suaempresa.com</code>).</li>
+<li><strong>SSL/HTTPS</strong> (Let’s Encrypt via Nginx/Traefik).</li>
+<li><strong>Docker</strong> e <strong>Docker Compose</strong> instalados.</li>
+<li>Acesso a uma <strong>instância Evolution API</strong> com número WhatsApp conectado.</li>
+</ul>
+<hr>
+</section>
+<section id="instalação-do-n8n-do-zero" class="level1">
+<h1>⚙️ Instalação do n8n (do zero)</h1>
+<section id="instalar-docker-e-compose" class="level2">
+<h2 class="anchored" data-anchor-id="instalar-docker-e-compose">Instalar Docker e Compose</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-y</span> docker.io docker-compose</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable docker <span class="at">--now</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> <span class="at">--version</span> <span class="kw">&amp;&amp;</span> <span class="ex">docker-compose</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="estrutura-do-projeto" class="level2">
+<h2 class="anchored" data-anchor-id="estrutura-do-projeto">Estrutura do projeto</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/n8n <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ~/n8n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Crie <code>docker-compose.yml</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.3"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">n8n</span><span class="kw">:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> n8nio/n8n</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> always</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"5678:5678"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_ACTIVE=true</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_USER=admin</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_PASSWORD=troque-esta-senha</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_HOST=automacao.suaempresa.com</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_PROTOCOL=https</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> WEBHOOK_URL=https://automacao.suaempresa.com/</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ~/.n8n:/home/node/.n8n</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Suba o serviço:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps <span class="at">--format</span> <span class="st">"table {{.Names}}\t{{.Status}}"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Acesse <code>https://automacao.suaempresa.com:5678</code> e faça login.</p>
+<blockquote class="blockquote">
+<p><strong>Dica</strong>: Coloque o n8n atrás de um <strong>proxy reverso</strong> (Nginx/Traefik) para servir em <code>:443</code> sem precisar expor a porta <code>:5678</code> publicamente.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="instalação-da-evolution-api" class="level1">
+<h1>⚙️ Instalação da Evolution API</h1>
+<blockquote class="blockquote">
+<p>Você pode rodar localmente ou no mesmo servidor (ajuste portas conforme sua infra).</p>
+</blockquote>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/EvolutionAPI/evolution-api</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> evolution-api</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps <span class="at">--format</span> <span class="st">"table {{.Names}}\t{{.Status}}"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Acesse o painel (geralmente <code>http://&lt;host&gt;:8080</code>) e: 1. Crie uma <strong>instância</strong> (ex.: <code>minha-instancia</code>). 2. Faça o <strong>pairing/QR Code</strong> com o WhatsApp. 3. Verifique o status <strong>CONNECTED</strong>.</p>
+<p>Teste envio:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST http://localhost:8080/message/sendText/minha-instancia <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">"Content-Type: application/json"</span> <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">'{"to":"557199999999","text":"Teste Evolution API ✅"}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Se a mensagem chegou, a API está operacional.</p>
+<hr>
+</section>
+<section id="integração-evolution-api-n8n" class="level1">
+<h1>🔗 Integração Evolution API → n8n</h1>
+<section id="webhook-no-n8n-produção" class="level2">
+<h2 class="anchored" data-anchor-id="webhook-no-n8n-produção">Webhook no n8n (Produção)</h2>
+<ul>
+<li>Crie um <strong>Webhook Node</strong> no n8n.</li>
+<li>Copie a <strong>Production URL</strong> (ex.: <code>https://automacao.suaempresa.com/webhook/whatsapp-in</code>).</li>
+<li><strong>Ative o workflow</strong> (botão verde <em>Activate Workflow</em>).</li>
+</ul>
+</section>
+<section id="configuração-no-evolution" class="level2">
+<h2 class="anchored" data-anchor-id="configuração-no-evolution">Configuração no Evolution</h2>
+<ul>
+<li>No painel/arquivo de config da Evolution API, configure o <strong>Webhook URL</strong> para a <strong>Production URL</strong> do seu Webhook.</li>
+<li>Agora, <strong>cada mensagem recebida</strong> pelo WhatsApp dispara um <strong>POST</strong> para o n8n.</li>
+</ul>
+</section>
+<section id="payload-típico-recebido" class="level2">
+<h2 class="anchored" data-anchor-id="payload-típico-recebido">Payload típico recebido</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"event"</span><span class="fu">:</span> <span class="st">"messages.upsert"</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"instance"</span><span class="fu">:</span> <span class="st">"minha-instancia"</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"data"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"key"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"remoteJid"</span><span class="fu">:</span> <span class="st">"557199999999@s.whatsapp.net"</span><span class="fu">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"fromMe"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"3F81F0F4879BEC31A03B"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"pushName"</span><span class="fu">:</span> <span class="st">"Cliente Teste"</span><span class="fu">,</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"message"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"conversation"</span><span class="fu">:</span> <span class="st">"oi"</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"messageType"</span><span class="fu">:</span> <span class="st">"conversation"</span><span class="fu">,</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"messageTimestamp"</span><span class="fu">:</span> <span class="st">"1732054338"</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="normalização-de-entrada-code-node" class="level1">
+<h1>🧠 Normalização de entrada (Code Node)</h1>
+<p>Extrair <code>userId</code> e <code>texto</code> (considerando botões interativos):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> userId <span class="op">=</span> $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">key</span><span class="op">?.</span><span class="at">remoteJid</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> text <span class="op">=</span> (</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">message</span><span class="op">?.</span><span class="at">buttonsResponseMessage</span><span class="op">?.</span><span class="at">selectedButtonId</span> <span class="op">||</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">message</span><span class="op">?.</span><span class="at">conversation</span> <span class="op">||</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">''</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">.</span><span class="fu">normalize</span>(<span class="st">'NFKD'</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> { userId<span class="op">,</span> text }<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Se usar o <strong>Code Node (novo)</strong> do n8n, retorne <strong>um objeto</strong> (não array).</p>
+</blockquote>
+<hr>
+</section>
+<section id="persistência-de-sessão-data-store" class="level1">
+<h1>🗂️ Persistência de sessão (Data Store)</h1>
+<p>Crie uma <strong>coleção</strong> (ex.: <code>whatsapp_sessions</code>) para armazenar o estado por <code>userId</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"557199999999@s.whatsapp.net"</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"value"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"step"</span><span class="fu">:</span> <span class="st">"root"</span><span class="fu">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"updatedAt"</span><span class="fu">:</span> <span class="st">"2025-09-21T12:00:00Z"</span><span class="fu">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"extra"</span><span class="fu">:</span> <span class="fu">{}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Operações</strong>: - <strong>Get</strong>: buscar o step atual (por <code>key = userId</code>). - <strong>Upsert</strong>: atualizar <code>step</code> e <code>updatedAt</code>. - <strong>Delete</strong>: ao finalizar o atendimento (ou setar <code>step: done</code>).</p>
+<blockquote class="blockquote">
+<p>Para escala/performance, considere usar Redis/Postgres externos.</p>
+</blockquote>
+<hr>
+</section>
+<section id="fluxo-de-conversa-menu" class="level1">
+<h1>🧭 Fluxo de conversa (menu)</h1>
+<section id="regras-gerais" class="level2">
+<h2 class="anchored" data-anchor-id="regras-gerais">Regras gerais</h2>
+<ul>
+<li><code>"menu"</code> sempre volta ao <strong>menu raiz</strong>.</li>
+<li>Se não houver sessão → assume <strong>menu raiz</strong>.</li>
+<li>Use <strong>botões</strong> sempre que possível (menos erro de digitação).</li>
+</ul>
+</section>
+<section id="menu-raiz-exemplo-de-mensagem" class="level2">
+<h2 class="anchored" data-anchor-id="menu-raiz-exemplo-de-mensagem">Menu raiz (exemplo de mensagem)</h2>
+<pre><code>Olá! Escolha uma opção:
+1) Suporte
+2) Vendas
+(Envie "menu" para voltar ao início)</code></pre>
+<ul>
+<li>Após enviar, <code>Upsert</code>: <code>step = "root"</code>.</li>
+</ul>
+</section>
+<section id="branch-suporte" class="level2">
+<h2 class="anchored" data-anchor-id="branch-suporte">Branch: Suporte</h2>
+<ul>
+<li>Se <code>text === '1'</code> (no step <code>root</code>):
+<ul>
+<li><p>Envie:</p>
+<pre><code>Você escolheu *Suporte*:
+1) Abrir chamado
+2) Status do chamado</code></pre></li>
+<li><p><code>step = "suporte"</code>.</p></li>
+</ul></li>
+<li>No <code>step = "suporte"</code>:
+<ul>
+<li><code>text === '1'</code> → abrir chamado → mensagem final → <strong>Delete/step=done</strong>.</li>
+<li><code>text === '2'</code> → consultar API → responder → <strong>step = “root”</strong>.</li>
+<li>Outro → “Opção inválida” (mantém step).</li>
+</ul></li>
+</ul>
+</section>
+<section id="branch-vendas" class="level2">
+<h2 class="anchored" data-anchor-id="branch-vendas">Branch: Vendas</h2>
+<ul>
+<li>Se <code>text === '2'</code> (no step <code>root</code>):
+<ul>
+<li><p>Envie:</p>
+<pre><code>Você escolheu *Vendas*:
+1) Falar com atendente
+2) Catálogo</code></pre></li>
+<li><p><code>step = "vendas"</code>.</p></li>
+</ul></li>
+<li>No <code>step = "vendas"</code>:
+<ul>
+<li><code>text === '1'</code> → transferir para humano → <strong>done</strong>.</li>
+<li><code>text === '2'</code> → enviar catálogo/link/PDF → <strong>done</strong>.</li>
+<li>Outro → “Opção inválida”.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="envio-de-mensagens-evolution-api" class="level1">
+<h1>📤 Envio de mensagens (Evolution API)</h1>
+<section id="texto-simples" class="level2">
+<h2 class="anchored" data-anchor-id="texto-simples">Texto simples</h2>
+<pre class="http"><code>POST http://localhost:8080/message/sendText/minha-instancia
+Content-Type: application/json
+
+{
+  "to": "557199999999",
+  "text": "Olá! Escolha uma opção:\n1) Suporte\n2) Vendas\n(Envie \"menu\" para voltar)"
+}</code></pre>
+</section>
+<section id="botões-interativos" class="level2">
+<h2 class="anchored" data-anchor-id="botões-interativos">Botões interativos</h2>
+<pre class="http"><code>POST http://localhost:8080/message/sendButtons/minha-instancia
+Content-Type: application/json
+
+{
+  "to": "557199999999",
+  "text": "Escolha uma opção:",
+  "buttons": [
+    { "buttonId": "1", "buttonText": { "displayText": "Suporte" }, "type": 1 },
+    { "buttonId": "2", "buttonText": { "displayText": "Vendas" }, "type": 1 }
+  ]
+}</code></pre>
+<blockquote class="blockquote">
+<p><strong>Parsing da resposta</strong>: prefira <code>selectedButtonId</code> quando disponível; se não, caia para <code>conversation</code> (texto livre).</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="colocando-em-produção" class="level1">
+<h1>🏭 Colocando em produção</h1>
+<ol type="1">
+<li><strong>Ativar</strong> o workflow no n8n (Production URL do Webhook passa a responder).</li>
+<li>Configurar o <strong>Webhook URL</strong> da Evolution API para a <strong>Production URL</strong>.</li>
+<li>Garantir <strong>HTTPS/SSL</strong> válido (obrigatório para webhooks externos).</li>
+<li><strong>Persistência</strong>: garanta volume de dados (<code>~/.n8n</code>) e backup regular.</li>
+<li><strong>Logs/Execuções</strong>: habilite salvamento de execuções para auditoria/debug.</li>
+<li><strong>Timeout de sessão</strong>: se <code>updatedAt</code> for mais antigo que <em>X</em> minutos, resete para <code>root</code>.</li>
+<li><strong>Proteção</strong>: autenticação básica no n8n + firewall/segurança do host.</li>
+</ol>
+<hr>
+</section>
+<section id="testes-e-troubleshooting" class="level1">
+<h1>🧪 Testes e troubleshooting</h1>
+<ul>
+<li><strong>Webhook não dispara</strong>:
+<ul>
+<li>Workflow está <strong>ativado</strong>?</li>
+<li>Evolution aponta para a <strong>Production URL</strong>?</li>
+<li>HTTPS válido e acessível externamente?</li>
+</ul></li>
+<li><strong>Mensagem não chega</strong>:
+<ul>
+<li>Verifique resposta do <strong>HTTP Request Node</strong>.</li>
+<li>A instância Evolution está <strong>CONNECTED</strong>?</li>
+</ul></li>
+<li><strong>Estado perdido</strong> após restart:
+<ul>
+<li>Volume <code>~/.n8n</code> montado?</li>
+<li>Considere Data Store externo (Redis/Postgres).</li>
+</ul></li>
+<li><strong>Loop infinito</strong>:
+<ul>
+<li>Sempre tenha <strong>condição de saída</strong> e trate opções inválidas.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="boas-práticas" class="level1">
+<h1>🛡️ Boas práticas</h1>
+<ul>
+<li>Normalizar inputs (<code>toLowerCase</code>, remover acentos com <code>normalize('NFKD')</code>).</li>
+<li>Sempre oferecer “<strong>menu</strong>” para reset rápido.</li>
+<li>Preferir <strong>botões</strong> a texto livre.</li>
+<li>Validar e <strong>não avançar step</strong> em caso de input inválido.</li>
+<li>Monitorar filas/erros no n8n e na Evolution API.</li>
+<li>Versionar workflows exportados (<code>.json</code>) em repositório (Git).</li>
+</ul>
+<hr>
+</section>
+<section id="apêndice-a-snippets-úteis-n8n" class="level1">
+<h1>📎 Apêndice A — Snippets úteis (n8n)</h1>
+<section id="code-normalize" class="level2">
+<h2 class="anchored" data-anchor-id="code-normalize">Code (normalize)</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> userId <span class="op">=</span> $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">key</span><span class="op">?.</span><span class="at">remoteJid</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> text <span class="op">=</span> (</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">message</span><span class="op">?.</span><span class="at">buttonsResponseMessage</span><span class="op">?.</span><span class="at">selectedButtonId</span> <span class="op">||</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  $json<span class="op">.</span><span class="at">data</span><span class="op">?.</span><span class="at">message</span><span class="op">?.</span><span class="at">conversation</span> <span class="op">||</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">''</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">.</span><span class="fu">normalize</span>(<span class="st">'NFKD'</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">.</span><span class="fu">toLowerCase</span>()<span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> { userId<span class="op">,</span> text }<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="upsert-data-store-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="upsert-data-store-sessions">Upsert (Data Store → sessions)</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"key"</span><span class="fu">:</span> <span class="st">"={{$json.userId}}"</span><span class="fu">,</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"value"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"step"</span><span class="fu">:</span> <span class="st">"={{$json.nextStep}}"</span><span class="fu">,</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"updatedAt"</span><span class="fu">:</span> <span class="st">"={{ new Date().toISOString() }}"</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="if-sem-sessão-ou-pediu-menu" class="level2">
+<h2 class="anchored" data-anchor-id="if-sem-sessão-ou-pediu-menu">IF (sem sessão ou pediu menu)</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>{{ <span class="op">!</span>($json<span class="op">.</span><span class="at">data</span> <span class="op">&amp;&amp;</span> $json<span class="op">.</span><span class="at">data</span><span class="op">.</span><span class="at">value</span> <span class="op">&amp;&amp;</span> $json<span class="op">.</span><span class="at">data</span><span class="op">.</span><span class="at">value</span><span class="op">.</span><span class="at">step</span>) <span class="op">||</span> $json<span class="op">.</span><span class="at">text</span> <span class="op">===</span> <span class="st">'menu'</span> }}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="apêndice-b-docker-compose-exemplo" class="level1">
+<h1>📎 Apêndice B — docker-compose (exemplo)</h1>
+<div class="sourceCode" id="cb19"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">"3.3"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proxy</span><span class="kw">:</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> traefik:v3.0</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--api.dashboard=true"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--providers.docker=true"</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--entrypoints.web.address=:80"</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--entrypoints.websecure.address=:443"</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--certificatesresolvers.le.acme.tlschallenge=true"</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--certificatesresolvers.le.acme.email=devops@suaempresa.com"</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"80:80"</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"443:443"</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"/var/run/docker.sock:/var/run/docker.sock:ro"</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"./letsencrypt:/letsencrypt"</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">n8n</span><span class="kw">:</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> n8nio/n8n</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> always</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_ACTIVE=true</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_USER=admin</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_BASIC_AUTH_PASSWORD=troque-esta-senha</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_HOST=automacao.suaempresa.com</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> N8N_PROTOCOL=https</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> WEBHOOK_URL=https://automacao.suaempresa.com/</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.enable=true"</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.n8n.rule=Host(`automacao.suaempresa.com`)"</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.n8n.entrypoints=websecure"</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.n8n.tls.certresolver=le"</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ~/.n8n:/home/node/.n8n</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">evolution</span><span class="kw">:</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> &lt;imagem-da-evolution-api&gt;</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> always</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"8080:8080"</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">labels</span><span class="kw">:</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.enable=true"</span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.evolution.rule=Host(`evolution.suaempresa.com`)"</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.evolution.entrypoints=websecure"</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"traefik.http.routers.evolution.tls.certresolver=le"</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> NODE_ENV=production</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./evolution-data:/data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p><strong>Observação</strong>: substitua <code>&lt;imagem-da-evolution-api&gt;</code> pela imagem/container oficial que você estiver utilizando.</p>
+</blockquote>
+<hr>
+</section>
+<section id="checklist-de-golive" class="level1">
+<h1>🧾 Checklist de Go‑Live</h1>
+<ul class="task-list">
+<li><label><input type="checkbox">DNS e SSL válidos (n8n + Evolution).</label></li>
+<li><label><input type="checkbox">Workflow <strong>ativado</strong> (Production URL em uso).</label></li>
+<li><label><input type="checkbox">Webhook configurado na Evolution API.</label></li>
+<li><label><input type="checkbox">Testes ponta-a-ponta (receber → processar → responder).</label></li>
+<li><label><input type="checkbox">Persistência e backups funcionando.</label></li>
+<li><label><input type="checkbox">Observabilidade (logs, execuções salvas, alertas).</label></li>
+<li><label><input type="checkbox">Plano de rollback/export do workflow (.json) versionado.</label></li>
+</ul>
+<hr>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
