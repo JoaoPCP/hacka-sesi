@@ -1,0 +1,31 @@
+project:
+  type: website
+  preview: 
+    browser: false
+    port: 3000
+website:
+  title: " "
+  navbar:
+    logo: "/imagens/logo.png"
+    left:
+      - href: index.qmd
+        text: Home
+      - href: system/arqt.qmd
+        text: Arquitetura
+      - href: system/teste.qmd
+        text: Como Testar
+    right: 
+      - about.qmd
+      - icon: github
+        href: https://github.com/JoaoPCP/hacka-sesi
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+

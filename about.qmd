@@ -1,0 +1,27 @@
+---
+title: "Sobre nós"
+image: "/imagens/sobre.jpeg"
+about:
+  template: jolla
+  links:
+    - icon: linkedin
+      text: Ana Carolina
+      href: https://www.linkedin.com/ana-carolina-balbino
+    - icon: linkedin
+      text: João Paixão
+      href: https://www.linkedin.com/in/joao-paulo-cardoso-da-paixao
+    - icon: linkedin
+      text: Luana Beatriz 
+      href: https://www.linkedin.com/in/luanabeaqa
+    - icon: linkedin
+      text: Ana Braz 
+      href: https://www.linkedin.com/in/ana-braz-3a09921b2/
+    - icon: linkedin
+      text: Esther Louise
+      href: https://www.linkedin.com/in/esther-louise-freire-2a14741ab/
+    - icon: linkedin
+      text: Pedro Caldas
+      href: https://www.linkedin.com/in/pedro-caldas-pereira/
+---
+
+Olá! Somos a equipe Strategie, um grupo de estudantes dedicados ao desenvolvimento de soluções tecnológicas inovadoras. Nosso objetivo neste hackathon é criar ferramentas que facilitem a experiência dos clientes SESI para melhorar a eficiência dos processos internos por meio da automação proporcionando mais agilidade e precisão. 

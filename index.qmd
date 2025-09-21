@@ -1,0 +1,23 @@
+---
+title: "Projeto SESI+ Saude : Melhor Agora!"
+---
+
+**Para ter acesso ao código fonte do projeto acesse <https://github.com/JoaoPCP/hacka-sesi>.**
+
+# Como Executar
+
+::: {.callout-tip}
+### Pré-requisitos
+- Docker
+- Docker Compose
+- Node.js (versão 16 ou superior)''
+- Dbeaver versão 23.2.3 ou superior
+
+:::
+::: {.callout-warning}
+### Atenção
+Atenção ao selecionar o sistema operacional para teste do projeto. Para Windows, é recomendado o uso do WSL (Windows Subsystem for Linux). Siga as instruções na seção "Windows com WSL".
+::: 
+## "Windows com WSL"
+Se você está usando Windows, mas não quer usar o WSL, siga o tutorial de instalação do Python para Windows.
+    

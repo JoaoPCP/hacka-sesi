@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sobre nós",
+    "section": "",
+    "text": "Olá! Somos a equipe Strategie, um grupo de estudantes dedicados ao desenvolvimento de soluções tecnológicas inovadoras. Nosso objetivo neste hackathon é criar ferramentas que facilitem a experiência dos clientes SESI para melhorar a eficiência dos processos internos por meio da automação proporcionando mais agilidade e precisão."
+  },
+  {
+    "objectID": "system/arqt.html#workflow-de-atendimento",
+    "href": "system/arqt.html#workflow-de-atendimento",
+    "title": "Arquitetura do Sistema",
+    "section": "Workflow de atendimento",
+    "text": "Workflow de atendimento\n\n1. Fluxo de interação do usuário com a Sesinha\n\n\n\n\n\nflowchart LR\n Start([Início]) --&gt; A[Mensagem inicial da Sesinha]\n    A --&gt; B[Consulta marcada&lt;br&gt; para 22/09/2025]\n    B --&gt; C[Explicação das etapas do atendimento]\n    C --&gt; D[Tempo estimado: 40 minutos]\n    D --&gt; E{Pergunta:&lt;br&gt;Você vai poder comparecer?}\n    \n  \n\n\n\n\n\n\n\n\n2. Fluxo de interação do usuário com a Sesinha\n\n\n\n\n\nflowchart LR\n    \n    E{Pergunta:&lt;br&gt;Você vai poder comparecer?} -- \"👉 1. Não vou poder\" --&gt; F[⚠️ Entendido]\n    F --&gt; G[Cancelamento/remarcação pelo RH]\n    G --&gt; End1([Fim])\n    \n    E{Pergunta:&lt;br&gt;Você vai poder comparecer?} -- \"👉 2. Vou comparecer\" --&gt; H[✅ Presença confirmada!]\n    H --&gt; I[Lembrete: manter dados atualizados]\n    I --&gt; J{Pergunta:&lt;br&gt;Verificar dados agora?}\n    \n    J -- \"👉 1. Sim, verificar\" --&gt; K[Funcionalidade em desenvolvimento]\n    J -- \"👉 2. Agora não\" --&gt; K\n    K --&gt; End2([Fim])"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Projeto SESI+ Saude : Melhor Agora!",
+    "section": "",
+    "text": "Para ter acesso ao código fonte do projeto acesse https://github.com/JoaoPCP/hacka-sesi."
+  },
+  {
+    "objectID": "index.html#windows-com-wsl",
+    "href": "index.html#windows-com-wsl",
+    "title": "Projeto SESI+ Saude : Melhor Agora!",
+    "section": "“Windows com WSL”",
+    "text": "“Windows com WSL”\nSe você está usando Windows, mas não quer usar o WSL, siga o tutorial de instalação do Python para Windows."
+  },
+  {
+    "objectID": "system/arqt.html",
+    "href": "system/arqt.html",
+    "title": "Arquitetura do Sistema",
+    "section": "",
+    "text": "Este documento descreve a arquitetura do sistema desenvolvido para o projeto SESI+ Saúde, detalhando os componentes principais, fluxos de dados e interações entre os módulos."
+  },
+  {
+    "objectID": "system/arqt.html#diagrama-de-sequencia",
+    "href": "system/arqt.html#diagrama-de-sequencia",
+    "title": "Arquitetura do Sistema",
+    "section": "",
+    "text": "sequenceDiagram\n    participant U as Usuário\n    participant S as Sesinha\n\n    Note over S: Mensagem inicial\n    S-&gt;&gt;U: 👋 Olá, eu sou a Sesinha...\n    S-&gt;&gt;U: Você vai poder comparecer?\n    S-&gt;&gt;U: 1. Não vou poder&lt;br&gt;2. Vou comparecer\n\n    alt Opção 1: Não vou poder\n        U-&gt;&gt;S: 1\n        S-&gt;&gt;U: ⚠️ Entendido. Mas atenção...\n        S-&gt;&gt;U: Por favor, entre em contato com o RH\n    else Opção 2: Vou comparecer\n        U-&gt;&gt;S: 2\n        S-&gt;&gt;U: ✅ Perfeito, presença confirmada!\n        S-&gt;&gt;U: Quer que eu verifique dados?\n        S-&gt;&gt;U: 1. Sim, verificar&lt;br&gt;2. Agora não\n        \n        alt Qualquer opção (1 ou 2)\n            U-&gt;&gt;S: 1 ou 2\n            S-&gt;&gt;U: Essa funcionalidade está em desenvolvimento\n        end\n    end"
+  },
+  {
+    "objectID": "system/arqt.html#diagrama-de-sequncia",
+    "href": "system/arqt.html#diagrama-de-sequncia",
+    "title": "Arquitetura do Sistema",
+    "section": "",
+    "text": "sequenceDiagram\n    participant U as Usuário\n    participant S as Sesinha\n\n    Note over S: Mensagem inicial\n    S-&gt;&gt;U: 👋 Olá, eu sou a Sesinha...\n    S-&gt;&gt;U: Você vai poder comparecer?\n    S-&gt;&gt;U: 1. Não vou poder&lt;br&gt;2. Vou comparecer\n\n    alt Opção 1: Não vou poder\n        U-&gt;&gt;S: 1\n        S-&gt;&gt;U: ⚠️ Entendido. Mas atenção...\n        S-&gt;&gt;U: Por favor, entre em contato com o RH\n    else Opção 2: Vou comparecer\n        U-&gt;&gt;S: 2\n        S-&gt;&gt;U: ✅ Perfeito, presença confirmada!\n        S-&gt;&gt;U: Quer que eu verifique dados?\n        S-&gt;&gt;U: 1. Sim, verificar&lt;br&gt;2. Agora não\n        \n        alt Qualquer opção (1 ou 2)\n            U-&gt;&gt;S: 1 ou 2\n            S-&gt;&gt;U: Essa funcionalidade está em desenvolvimento\n        end\n    end"
+  },
+  {
+    "objectID": "system/arqt.html#diagrama-de-sequência",
+    "href": "system/arqt.html#diagrama-de-sequência",
+    "title": "Arquitetura do Sistema",
+    "section": "Diagrama de sequência",
+    "text": "Diagrama de sequência\n\n\n\n\n\nsequenceDiagram\n    participant U as Usuário\n    participant S as Sesinha\n\n    Note over S: Mensagem inicial\n    S-&gt;&gt;U: 👋 Olá, eu sou a Sesinha...\n    S-&gt;&gt;U: Você vai poder comparecer?\n    S-&gt;&gt;U: 1. Não vou poder&lt;br&gt;2. Vou comparecer\n\n    alt Opção 1: Não vou poder\n        U-&gt;&gt;S: 1\n        S-&gt;&gt;U: ⚠️ Entendido. Mas atenção...\n        S-&gt;&gt;U: Por favor, entre em contato com o RH\n    else Opção 2: Vou comparecer\n        U-&gt;&gt;S: 2\n        S-&gt;&gt;U: ✅ Perfeito, presença confirmada!\n        S-&gt;&gt;U: Quer que eu verifique dados?\n        S-&gt;&gt;U: 1. Sim, verificar&lt;br&gt;2. Agora não\n        \n        alt Qualquer opção (1 ou 2)\n            U-&gt;&gt;S: 1 ou 2\n            S-&gt;&gt;U: Essa funcionalidade está em desenvolvimento\n        end\n    end"
+  }
+]
