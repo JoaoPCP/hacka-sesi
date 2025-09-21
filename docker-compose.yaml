@@ -9,6 +9,9 @@ services:
       - .env
     volumes:
       - evolution_instances:/evolution/instances
+    depends_on:
+      - db
+
   redis:
     container_name: evolution_redis
     image: redis:latest
@@ -22,14 +25,16 @@ services:
 
   db:
     image: postgres:15
-    container_name: hacka_db
+    container_name: strategie_db
+    restart: always
     env_file:
       - .env
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-      
+      - ./persistence/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
