@@ -1,3 +1,4 @@
+import { ZapBot } from "@/models/chatbot/zapbot";
 import { Consulta } from "@/models/consulta/Consulta";
 import { Exame } from "@/models/exame/Exame";
 import { GrupoDeRisco } from "@/models/GrupoDeRisco/GrupoDeRisco";
@@ -12,6 +13,7 @@ interface requisitosMarcarConsulta {
 export class MarcarConsultaService {
   constructor(private readonly consultaRepository: ConsultaRepository, private readonly pacienteRepository: PacienteRepository) {}
   async execute(params: requisitosMarcarConsulta) {
+    console.log("Iniciando marcação de consulta...");
     try {
       const { cpf, data, exames } = params;
       const paciente = await this.pacienteRepository.getByCPF(cpf)
@@ -28,7 +30,10 @@ export class MarcarConsultaService {
         grupoDeRisco: grupoDeRisco? grupoDeRisco.nome : null,
       });
       await this.consultaRepository.save(consulta);
-      this.enviarMensagem(consulta);
+      console.log("Consulta salva no banco de dados.");
+      const zapBotresponse = await ZapBot.sendMensagemConsultaMarcada(paciente.telefone,data,paciente.nome);
+      console.log(zapBotresponse)
+      console.log(`Consulta marcada com sucesso para o paciente ${paciente.nome} na data ${data}`);
       return consulta;
     } catch (error) {
       throw error;
@@ -42,8 +47,5 @@ export class MarcarConsultaService {
     if (!grupoDeRisco) return [...exames];
     const set = new Set<Exame>([...exames, ...grupoDeRisco.examesDeRotina]);
     return [...set];
-  }
-  private enviarMensagem(consulta: Consulta) {
-    console.log("Consulta Marcada \n" + consulta);
   }
 }

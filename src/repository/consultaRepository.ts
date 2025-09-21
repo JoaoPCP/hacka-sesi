@@ -5,7 +5,7 @@ export class ConsultaRepository {
   constructor(private readonly prisma: PrismaClient) {}
   async save(consulta: Consulta) {
     try {
-      const response = this.prisma.consulta.create({
+      const response = await this.prisma.consulta.create({
         data: {
           ...consulta.toDb(),
         },
