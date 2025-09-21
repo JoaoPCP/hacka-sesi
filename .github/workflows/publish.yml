@@ -18,7 +18,8 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-
+      - name: Check Quarto Installation
+        run: quarto --version
       - name: Configure Git
         run: |
           git config --global user.email "github-actions@example.com"
@@ -37,3 +38,4 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
